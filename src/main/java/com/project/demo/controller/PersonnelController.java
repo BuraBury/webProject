@@ -62,7 +62,8 @@ public class PersonnelController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> updatePersonnelById(@PathVariable Long id, @RequestBody Personnel personnel) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(personnelService.updatePersonnelById(id, personnel));
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(personnelService.updatePersonnelById(id, personnel));
 
     }
 

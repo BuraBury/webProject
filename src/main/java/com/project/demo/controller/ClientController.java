@@ -3,9 +3,11 @@ package com.project.demo.controller;
 import com.project.demo.model.Client;
 import com.project.demo.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -29,11 +31,37 @@ public class ClientController {
         }
     }
 
-    //create new Client
-    @PostMapping
-    public Client createClient(@RequestBody Client client) {
-        log.info(client.toString());
-        client.setId(client.getId());
-        return client;
+    @GetMapping
+    public ResponseEntity<List<Client>> getAllClients() {
+        return ResponseEntity.ok(clientService.getAllClients());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteClient(@PathVariable Long id) {
+        if (clientService.removeClientById(id)) {
+            return ResponseEntity.accepted().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createClient(@RequestBody List<Client> clients) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(clientService.createBatchOfClients(clients));
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<?> updateClientById(@PathVariable Long id, @RequestBody Client client) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(clientService.updateClientById(id, client));
+    }
+
+    //create new Client
+//    @PostMapping
+//    public Client createClient(@RequestBody Client client) {
+//        log.info(client.toString());
+//        client.setId(client.getId());
+//        return client;
+//    }
 }

@@ -18,8 +18,9 @@ public class Client {
     private LocalDate arrivalDate;
     private LocalDate departureDate;
     private Long passportNumber;
-    //numer pokoju ??
+    //TODO: numer pokoju ??
 }
 
-//ToDo: uzupelnic class Customer
-//ToDo: dodac nowy service i controller obslugujacy zarzadzanie clientami
+//TODO: uzupelnic class Customer
+//TODO: dodac nowy service i controller obslugujacy zarzadzanie clientami
+//TODO: dodac clientow do pamieci
