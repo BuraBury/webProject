@@ -1,0 +1,63 @@
+package com.project.demo.controller;
+
+import com.project.demo.model.Personnel;
+import com.project.demo.service.PersonnelService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Objects;
+
+@RestController
+@RequestMapping(path = "/hotel/personnel")
+@Slf4j
+public class PersonnelController {
+
+    private final PersonnelService personnelService;
+
+    //tu wstrzykujemy potrzebne serwisy
+    public PersonnelController(PersonnelService personnelService) {
+        this.personnelService = personnelService;
+    }
+
+    //metoda adnotowana jako GetMapping zostanie wywoalana na zadanie: localhost:<PORT>/hotel/personel/<id>
+    // gdzie id to numer pracownika
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getPersonnelByID(@PathVariable Long id) {
+        Personnel personnel = personnelService.getPersonnelById(id);
+        //jezeli znalazlo pracownika zwraca go
+        if (Objects.nonNull(personnel)) {
+            return ResponseEntity.ok(personnel);
+        }
+        //jesli nie 404 not found
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Personnel>> getAllPersonnel() {
+        return ResponseEntity.ok(personnelService.getAllPersonnel());
+    }
+
+    //DeleteMapping powinien sluzyc do usuwania zasobow serwisu.
+    // W tym przypadku jesli sie uda to 204, jesli nie to 400
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePersonnel(@PathVariable Long id) {
+        if (personnelService.removePersonnelById(id)) {
+            return ResponseEntity.accepted().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    //PostMapping powinien sluzyc do tworzenia nowych zasobow
+    @PostMapping
+    public ResponseEntity<?> createPersonnel(@RequestBody List<Personnel> personnel) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(personnelService.createBatchOfPersonnel(personnel));
+    }
+
+
+}
