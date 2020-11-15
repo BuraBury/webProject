@@ -1,13 +1,25 @@
 package com.project.demo.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Client {
-    private String name;
     private Long id;
+    private String firstName;
+    private String lastName;
+    private LocalDate arrivalDate;
+    private LocalDate departureDate;
+    private Long passportNumber;
+    //numer pokoju ??
 }
+
+//ToDo: uzupelnic class Customer
+//ToDo: dodac nowy service i controller obslugujacy zarzadzanie clientami

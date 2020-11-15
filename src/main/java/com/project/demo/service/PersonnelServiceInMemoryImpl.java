@@ -44,7 +44,7 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
 
     @Override
     public boolean removePersonnelById(Long id) {
-        if(personnelMap.containsKey(id)) {
+        if (personnelMap.containsKey(id)) {
             personnelMap.remove(id);
             return true;
         }
@@ -63,7 +63,29 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
 
     @Override
     public Personnel updatePersonnelById(Long id, Personnel personnel) {
+        if (personnelMap.containsKey(id)) {
+            if (personnel.getFirstName() != null) {
+                personnelMap.get(id).setFirstName(personnel.getFirstName());
+            }
+            if (personnel.getLastName() != null) {
+                personnelMap.get(id).setLastName(personnel.getLastName());
+            }
+            if (personnel.getSalary() != null) {
+                personnelMap.get(id).setSalary(personnel.getSalary());
+            }
+            if (personnel.isSickLeave() != personnelMap.get(id).isSickLeave()) {
+                personnelMap.get(id).setSickLeave(personnel.isSickLeave());
+            }
+            if (personnel.getPosition() != null) {
+                personnelMap.get(id).setPosition(personnel.getPosition());
+            }
+            if (personnel.getHireDate() != null) {
+                personnelMap.get(id).setHireDate(personnel.getHireDate());
+            }
+            return personnelMap.get(id);
+        }
         return null;
+
     }
 
     private List<Personnel> addPersonnel(List<Personnel> personnels) {
