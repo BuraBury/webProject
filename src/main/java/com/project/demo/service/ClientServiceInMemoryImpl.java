@@ -15,7 +15,7 @@ import java.util.Map;
 @Scope("singleton")
 public class ClientServiceInMemoryImpl implements ClientService {
 
-    private Map<Long, Client> clientMap = new HashMap<>();
+    private final Map<Long, Client> clientMap = new HashMap<>();
     private Long nextId = 1L;
 
     @PostConstruct

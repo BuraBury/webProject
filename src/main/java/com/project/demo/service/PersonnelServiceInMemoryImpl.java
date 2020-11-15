@@ -15,13 +15,13 @@ import java.util.Map;
 @Scope("singleton")
 public class PersonnelServiceInMemoryImpl implements PersonnelService {
 
-    private Map<Long, Personnel> personnelMap = new HashMap<>();
+    private final Map<Long, Personnel> personnelMap = new HashMap<>();
     private Long nextId = 1L;
 
     @PostConstruct
     public void init() {
         personnelMap.put(nextId, Personnel.builder()
-                .id(getNextId())
+                .id(nextId)
                 .firstName("Właściciel")
                 .lastName("Hotelu")
                 .hireDate(LocalDate.parse("1800-01-01"))
