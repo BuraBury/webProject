@@ -53,7 +53,8 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
 
     @Override
     public Personnel createNewPersonnel(Personnel personnel) {
-        return null;
+        personnel.setId(getNextId());
+        return personnelMap.put(personnel.getId(), personnel);
     }
 
     @Override

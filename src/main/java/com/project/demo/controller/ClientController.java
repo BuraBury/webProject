@@ -1,6 +1,7 @@
 package com.project.demo.controller;
 
 import com.project.demo.model.Client;
+import com.project.demo.model.Personnel;
 import com.project.demo.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -45,10 +46,16 @@ public class ClientController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/batch")
     public ResponseEntity<?> createClient(@RequestBody List<Client> clients) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(clientService.createBatchOfClients(clients));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createClient(@RequestBody Client client) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(clientService.createNewClient(client));
     }
 
     @PutMapping(path = "/{id}")

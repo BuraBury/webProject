@@ -54,10 +54,16 @@ public class PersonnelController {
     }
 
     //PostMapping powinien sluzyc do tworzenia nowych zasobow
-    @PostMapping
+    @PostMapping("/batch")
     public ResponseEntity<?> createPersonnel(@RequestBody List<Personnel> personnel) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(personnelService.createBatchOfPersonnel(personnel));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createPersonnel(@RequestBody Personnel personnel) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(personnelService.createNewPersonnel(personnel));
     }
 
     @PutMapping(path = "/{id}")
