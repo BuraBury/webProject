@@ -1,6 +1,9 @@
 package com.project.demo.service;
 
+import com.project.demo.config.HotelPersonnelConfig;
 import com.project.demo.model.Personnel;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +20,59 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
 
     private final Map<Long, Personnel> personnelMap = new HashMap<>();
     private Long nextId = 1L;
+    private final HotelPersonnelConfig hotelPersonnelConfig;
+
+    //wstrzykiwanie wartosci z pliku application.properties:
+    @Value("${hotel.personel.owner.name}")
+    private String ownerName;
+    @Value("${hotel.personel.owner.salary:20000.0}")
+    private Double salary;
+    @Value("${hotel.personel.owner.last-name}")
+    private String ownerLastName;
+    @Value("${hotel.personel.owner.position}")
+    private String ownerPosition;
+    @Value("${hotel.personel.owner.sick-leave}")
+    private Boolean ownerSickLeave;
+
+    public PersonnelServiceInMemoryImpl(HotelPersonnelConfig hotelPersonnelConfig) {
+        this.hotelPersonnelConfig = hotelPersonnelConfig;
+    }
+
 
     @PostConstruct
     public void init() {
         personnelMap.put(nextId, Personnel.builder()
                 .id(nextId)
-                .firstName("Właściciel")
-                .lastName("Hotelu")
-                .hireDate(LocalDate.parse("1800-01-01"))
-                .position("Boss")
-                .salary(12000.0)
-                .sickLeave(false)
+                .firstName(ownerName)
+                .lastName(ownerLastName)
+                .hireDate(LocalDate.parse("2020-03-01"))
+                .position(ownerPosition)
+                .salary(salary)
+                .sickLeave(ownerSickLeave)
                 .build());
+
+        personnelMap.put(nextId, Personnel.builder()
+                .id(nextId)
+                .firstName(hotelPersonnelConfig.getNames().get(2))
+                .lastName(ownerLastName)
+                .hireDate(LocalDate.parse("2020-03-01"))
+                .position(ownerPosition)
+                .salary(salary)
+                .sickLeave(ownerSickLeave)
+                .build());
+
+        personnelMap.put(nextId, Personnel.builder()
+                .id(nextId)
+                .firstName(hotelPersonnelConfig.getNames().get(1))
+                .lastName(hotelPersonnelConfig.getPeople().get(hotelPersonnelConfig.getNames().get(1)))
+                .hireDate(LocalDate.parse("2020-03-01"))
+                .position(ownerPosition)
+                .salary(salary)
+                .sickLeave(ownerSickLeave)
+                .build());
+
         nextId++;
+
     }
 
     @Override

@@ -27,6 +27,7 @@ public class ClientServiceInMemoryImpl implements ClientService {
                 .arrivalDate(LocalDate.parse("2020-03-01"))
                 .departureDate(LocalDate.parse("2020-03-18"))
                 .passportNumber("123456")
+                .roomNumber("1")
                 .build());
         nextId++;
     }

@@ -18,6 +18,7 @@ public class Client {
     private LocalDate arrivalDate;
     private LocalDate departureDate;
     private String passportNumber;
+    private String roomNumber;
     //TODO: numer pokoju ??
 }
 
