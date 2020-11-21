@@ -60,15 +60,12 @@ public class ClientController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> updateClientById(@PathVariable Long id, @RequestBody Client client) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(clientService.updateClientById(id, client));
+        if (Objects.nonNull(clientService.getClientById(id))) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .body(clientService.updateClientById(id, client));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    //create new Client
-//    @PostMapping
-//    public Client createClient(@RequestBody Client client) {
-//        log.info(client.toString());
-//        client.setId(client.getId());
-//        return client;
-//    }
 }

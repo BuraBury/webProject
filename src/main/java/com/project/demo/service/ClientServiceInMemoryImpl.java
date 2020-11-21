@@ -18,19 +18,19 @@ public class ClientServiceInMemoryImpl implements ClientService {
     private final Map<Long, Client> clientMap = new HashMap<>();
     private Long nextId = 1L;
 
-    @PostConstruct
-    public void init() {
-        clientMap.put(nextId, Client.builder()
-                .id(nextId)
-                .firstName("Pierwszy")
-                .lastName("Klient")
-                .arrivalDate(LocalDate.parse("2020-03-01"))
-                .departureDate(LocalDate.parse("2020-03-18"))
-                .passportNumber("123456")
-                .roomNumber("1")
-                .build());
-        nextId++;
-    }
+//    @PostConstruct
+//    public void init() {
+//        clientMap.put(nextId, Client.builder()
+//                .id(nextId)
+//                .firstName("Pierwszy")
+//                .lastName("Klient")
+//                .arrivalDate(LocalDate.parse("2020-03-01"))
+//                .departureDate(LocalDate.parse("2020-03-18"))
+//                .passportNumber("123456")
+//                .roomNumber("1")
+//                .build());
+//        nextId++;
+//    }
 
     @Override
     public Client getClientById(Long id) {

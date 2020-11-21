@@ -2,6 +2,7 @@ package com.project.demo.service;
 
 import com.project.demo.config.HotelPersonnelConfig;
 import com.project.demo.model.Personnel;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @Service
 @Scope("singleton")
+@Slf4j
 public class PersonnelServiceInMemoryImpl implements PersonnelService {
 
     private final Map<Long, Personnel> personnelMap = new HashMap<>();
@@ -39,41 +41,42 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
     }
 
 
-    @PostConstruct
-    public void init() {
-        personnelMap.put(nextId, Personnel.builder()
-                .id(nextId)
-                .firstName(ownerName)
-                .lastName(ownerLastName)
-                .hireDate(LocalDate.parse("2020-03-01"))
-                .position(ownerPosition)
-                .salary(salary)
-                .sickLeave(ownerSickLeave)
-                .build());
-
-        personnelMap.put(nextId, Personnel.builder()
-                .id(nextId)
-                .firstName(hotelPersonnelConfig.getNames().get(2))
-                .lastName(ownerLastName)
-                .hireDate(LocalDate.parse("2020-03-01"))
-                .position(ownerPosition)
-                .salary(salary)
-                .sickLeave(ownerSickLeave)
-                .build());
-
-        personnelMap.put(nextId, Personnel.builder()
-                .id(nextId)
-                .firstName(hotelPersonnelConfig.getNames().get(1))
-                .lastName(hotelPersonnelConfig.getPeople().get(hotelPersonnelConfig.getNames().get(1)))
-                .hireDate(LocalDate.parse("2020-03-01"))
-                .position(ownerPosition)
-                .salary(salary)
-                .sickLeave(ownerSickLeave)
-                .build());
-
-        nextId++;
-
-    }
+//    @PostConstruct
+//    public void init() {
+//        personnelMap.put(nextId, Personnel.builder()
+//                .id(nextId)
+//                .firstName(ownerName)
+//                .lastName(ownerLastName)
+//                .hireDate(LocalDate.parse("2020-03-01"))
+//                .position(ownerPosition)
+//                .salary(salary)
+//                .sickLeave(ownerSickLeave)
+//                .build());
+//
+//        personnelMap.put(nextId, Personnel.builder()
+//                .id(nextId)
+//                .firstName(hotelPersonnelConfig.getNames().get(2))
+//                .lastName(ownerLastName)
+//                .hireDate(LocalDate.parse("2020-03-01"))
+//                .position(ownerPosition)
+//                .salary(salary)
+//                .sickLeave(ownerSickLeave)
+//                .build());
+//
+//        personnelMap.put(nextId, Personnel.builder()
+//                .id(nextId)
+//                .firstName(hotelPersonnelConfig.getNames().get(1))
+//                .lastName(hotelPersonnelConfig.getPeople().get(hotelPersonnelConfig.getNames().get(1)))
+//                .hireDate(LocalDate.parse("2020-03-01"))
+//                .position(ownerPosition)
+//                .salary(salary)
+//                .sickLeave(ownerSickLeave)
+//                .build());
+//
+//        nextId++;
+//        log.info("blablabla");
+//
+//    }
 
     @Override
     public Personnel getPersonnelById(Long id) {

@@ -68,8 +68,12 @@ public class PersonnelController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> updatePersonnelById(@PathVariable Long id, @RequestBody Personnel personnel) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(personnelService.updatePersonnelById(id, personnel));
+        if (Objects.nonNull(personnelService.getPersonnelById(id))) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .body(personnelService.updatePersonnelById(id, personnel));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
 
     }
 

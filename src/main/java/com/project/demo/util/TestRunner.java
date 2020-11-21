@@ -54,7 +54,8 @@ public class TestRunner implements CommandLineRunner {
 
         log.info("Nowy pracownik dodany do bazy: " + personnelRepository.save(personnel).toString());
         log.info("Nowy pracownik dodany do bazy: " + personnelRepository.save(personnel1).toString());
-        log.info("Nowy klient dodany do bazy: " + clientRepository.save(client));
+        log.info("Nowy klient dodany do bazy: " + clientRepository.save(client).toString());
 
     }
+
 }
