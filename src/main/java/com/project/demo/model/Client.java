@@ -25,9 +25,7 @@ public class Client {
     private LocalDate departureDate;
     private String passportNumber;
     private String roomNumber;
-    //TODO: numer pokoju ??
+
 }
 
-//TODO: uzupelnic class Customer
-//TODO: dodac nowy service i controller obslugujacy zarzadzanie clientami
-//TODO: dodac clientow do pamieci
+
