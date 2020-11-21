@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,7 +50,10 @@ public class PersonnelServiceDbImpl implements PersonnelService {
 
     @Override
     public Personnel updatePersonnelById(Long id, Personnel personnel) {
-        //TODO
+        if (personnelRepository.existsById(id)) {
+            personnel.setId(id);
+            return personnelRepository.save(personnel);
+        }
         return null;
     }
 }

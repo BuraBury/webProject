@@ -34,8 +34,8 @@ public class TestRunner implements CommandLineRunner {
                 .lastName("Nagiet")
                 .hireDate(LocalDate.parse("2019-02-01"))
                 .position("Manager")
-                .salary(130.00)
-                .sickLeave(true)
+                .salary(130000.00)
+                .sickLeave(false)
                 .build();
 
         log.info("Nowy pracownik dodany do bazy: " + personnelRepository.create(personnel).toString());
