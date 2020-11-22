@@ -1,6 +1,7 @@
 package com.project.demo.service;
 
 import com.project.demo.model.Client;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.util.Map;
 
 @Service
 @Scope("singleton")
+@Profile("old")
+@Deprecated
 public class ClientServiceInMemoryImpl implements ClientService {
 
     private final Map<Long, Client> clientMap = new HashMap<>();

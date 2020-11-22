@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,8 +39,9 @@ public class PersonnelController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Personnel>> getAllPersonnel() {
-        return ResponseEntity.ok(personnelService.getAllPersonnel());
+    public ResponseEntity<List<Personnel>> getAllPersonnel(@RequestParam(required = false) Integer page,
+                                                           @RequestParam(required = false) Integer size) {
+        return ResponseEntity.ok(personnelService.getAllPersonnel(page, size));
     }
 
     //DeleteMapping powinien sluzyc do usuwania zasobow serwisu.
@@ -61,7 +63,7 @@ public class PersonnelController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPersonnel(@RequestBody Personnel personnel) {
+    public ResponseEntity<?> createPersonnel(@Valid @RequestBody Personnel personnel) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(personnelService.createNewPersonnel(personnel));
     }
@@ -77,5 +79,19 @@ public class PersonnelController {
 
     }
 
+    @GetMapping("/sick/{sickLeave}")
+    public ResponseEntity<?> getPersonnlesBySickLeave(@PathVariable Boolean sickLeave) {
+        return ResponseEntity.ok(personnelService.getPersonnelsBySickLeave(sickLeave));
+    }
+
+    @GetMapping("/position")
+    public ResponseEntity<?> getPersonnelByPosition(@RequestParam("position") String position) {
+        return ResponseEntity.ok(personnelService.getPersonnelByPosition(position));
+    }
+
+    @GetMapping("/cure")
+    public void cureAllPersonnel() {
+        personnelService.cureAllPersonnel();
+    }
 
 }

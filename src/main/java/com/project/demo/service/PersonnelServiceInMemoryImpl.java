@@ -18,6 +18,8 @@ import java.util.Map;
 @Service
 @Scope("singleton")
 @Slf4j
+@Profile("old")
+@Deprecated
 public class PersonnelServiceInMemoryImpl implements PersonnelService {
 
     private final Map<Long, Personnel> personnelMap = new HashMap<>();
@@ -84,7 +86,7 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
     }
 
     @Override
-    public List<Personnel> getAllPersonnel() {
+    public List<Personnel> getAllPersonnel(Integer page, Integer size) {
         return new ArrayList<>(personnelMap.values());
     }
 
@@ -132,6 +134,21 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
             return personnelMap.get(id);
         }
         return null;
+
+    }
+
+    @Override
+    public List<Personnel> getPersonnelsBySickLeave(boolean sickLeave) {
+        return null;
+    }
+
+    @Override
+    public List<Personnel> getPersonnelByPosition(String position) {
+        return null;
+    }
+
+    @Override
+    public void cureAllPersonnel() {
 
     }
 
