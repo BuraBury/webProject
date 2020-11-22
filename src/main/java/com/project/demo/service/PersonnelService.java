@@ -2,6 +2,7 @@ package com.project.demo.service;
 
 import com.project.demo.model.Personnel;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PersonnelService {
@@ -23,4 +24,7 @@ public interface PersonnelService {
     List <Personnel> getPersonnelByPosition(String position);
 
     void cureAllPersonnel();
+
+    List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName,
+                                            String position, Double salary, LocalDate hireDate, Boolean sickLeave);
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -92,6 +93,17 @@ public class PersonnelController {
     @GetMapping("/cure")
     public void cureAllPersonnel() {
         personnelService.cureAllPersonnel();
+    }
+
+    @GetMapping("/some")
+    public ResponseEntity<?> getSomeSpecialPersonnel(@RequestParam(required = false) Long id,
+                                                     @RequestParam(required = false) String firstName,
+                                                     @RequestParam(required = false) String lastName,
+                                                     @RequestParam(required = false) String position,
+                                                     @RequestParam(required = false) Double salary,
+                                                     @RequestParam(required = false) LocalDate hireDate,
+                                                     @RequestParam(required = false) Boolean sickLeave) {
+        return ResponseEntity.ok(personnelService.getSomeSpecialPersonnel(id, firstName, lastName, position, salary, hireDate, sickLeave));
     }
 
 }

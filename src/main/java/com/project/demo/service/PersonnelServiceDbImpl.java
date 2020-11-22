@@ -1,7 +1,8 @@
 package com.project.demo.service;
 
-import com.project.demo.exceptions.WrongPageException;
 import com.project.demo.model.Personnel;
+
+import com.project.demo.exceptions.WrongPageException;
 import com.project.demo.repository.PersonnelRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -82,7 +84,7 @@ public class PersonnelServiceDbImpl implements PersonnelService {
 
     @Override
     public List<Personnel> getPersonnelByPosition(String position) {
-        return personnelRepository.selectAllPersonnelWithPositionEqualTo(position);
+        return personnelRepository.findPersonnelByPositionEquals(position);
     }
 
     @Override
@@ -90,4 +92,40 @@ public class PersonnelServiceDbImpl implements PersonnelService {
         personnelRepository.updateAllPersonnelToBeHealthy();
 
     }
+
+    @Override
+    public List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName,
+                                                   String position, Double salary, LocalDate hireDate, Boolean sickLeave) {
+        if (firstName == null && lastName == null && position == null && salary == null && hireDate == null) {
+            return personnelRepository.findPersonnelByIdEquals(id);
+        }
+        if (id == null && lastName == null && position == null && salary == null && hireDate == null) {
+            return personnelRepository.findPersonnelByFirstNameEquals(firstName);
+        }
+        if (firstName == null && id == null && position == null && salary == null && hireDate == null) {
+            return personnelRepository.findPersonnelsByLastNameEquals(lastName);
+        }
+        if (firstName == null && lastName == null && id == null && salary == null && hireDate == null) {
+            return personnelRepository.findPersonnelByPositionEquals(position);
+        }
+        if (firstName == null && lastName == null && position == null && id == null && hireDate == null) {
+            return personnelRepository.findPersonnelsBySalaryEquals(salary);
+        }
+        if (firstName == null && lastName == null && position == null && salary == null && id == null) {
+            return personnelRepository.findPersonnelsByHireDateEquals(hireDate);
+        }
+        if (position == null && salary == null && id == null) {
+            return personnelRepository.findPersonnelsByFirstNameAndLastName(firstName, lastName);
+        }
+        if (hireDate == null && lastName == null && id == null && position == null) {
+            return personnelRepository.findPersonnelsBySalaryAndFirstName(salary, firstName);
+        }
+        if (firstName == null && lastName == null && salary == null && id == null) {
+            return personnelRepository.findPersonnelsByPositionAndSickLeave(position, sickLeave);
+        }
+
+        log.info("Brak takiego pracownika w bazie");
+        return null;
+    }
 }
+

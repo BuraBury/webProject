@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -150,6 +149,11 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
     @Override
     public void cureAllPersonnel() {
 
+    }
+
+    @Override
+    public List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName, String position, Double salary, LocalDate hireDate, Boolean isSick) {
+        return null;
     }
 
     private List<Personnel> addPersonnel(List<Personnel> personnels) {
