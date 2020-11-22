@@ -26,7 +26,7 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
     private Long nextId = 1L;
     private final HotelPersonnelConfig hotelPersonnelConfig;
 
-    //wstrzykiwanie wartosci z pliku application.properties:
+    //wstrzykiwanie wartosci z pliku application--a.properties:
     @Value("${hotel.personel.owner.name}")
     private String ownerName;
     @Value("${hotel.personel.owner.salary:20000.0}")
