@@ -22,7 +22,7 @@ public class Personnel {
     @Id
     @GeneratedValue
     private Long id;
-    @Length(min=2, max=25)
+//    @Length(min=2, max=25)
     @NotNull
     private String firstName;
     private String lastName;

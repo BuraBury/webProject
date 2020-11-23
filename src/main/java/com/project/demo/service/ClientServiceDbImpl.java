@@ -1,5 +1,6 @@
 package com.project.demo.service;
 
+import com.project.demo.exceptions.WrongDataException;
 import com.project.demo.exceptions.WrongPageException;
 import com.project.demo.exceptions.WrongIdException;
 import com.project.demo.model.Client;
@@ -70,9 +71,14 @@ public class ClientServiceDbImpl implements ClientService {
     }
 
     @Override
-    public Client createNewClient(Client client) {
-        log.info("Tworze nowego klienta");
-        return clientRepository.save(client);
+    public Client createNewClient(Client client) throws WrongDataException {
+        if(client.getFirstName().length() < 2 || client.getLastName().length() < 2) {
+            log.info("Nie udalo sie dodać klienta");
+            throw new WrongDataException("Błędne dane");
+        }else {
+            log.info("Dodano nowego klienta");
+            return clientRepository.save(client);
+        }
     }
 
     @Override

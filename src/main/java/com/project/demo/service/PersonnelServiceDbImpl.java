@@ -1,5 +1,6 @@
 package com.project.demo.service;
 
+import com.project.demo.exceptions.WrongDataException;
 import com.project.demo.exceptions.WrongIdException;
 import com.project.demo.model.Personnel;
 
@@ -73,9 +74,16 @@ public class PersonnelServiceDbImpl implements PersonnelService {
     }
 
     @Override
-    public Personnel createNewPersonnel(Personnel personnel) {
-        log.info("Tworze nowy personel");
-        return personnelRepository.save(personnel);
+    public Personnel createNewPersonnel(Personnel personnel) throws WrongDataException {
+        if (personnel.getFirstName().length() < 2 || personnel.getLastName().length()< 2) {
+            log.info("Nie udalo sie dodac pracownika");
+            throw new WrongDataException("Błędne dane");
+        } else {
+            log.info("Dodano nowego pracownika");
+            return personnelRepository.save(personnel);
+        }
+
+
     }
 
     @Override

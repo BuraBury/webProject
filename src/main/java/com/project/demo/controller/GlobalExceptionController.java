@@ -1,7 +1,7 @@
 package com.project.demo.controller;
 
 import com.project.demo.exceptions.WrongIdException;
-import com.project.demo.exceptions.WrongNameException;
+import com.project.demo.exceptions.WrongDataException;
 import com.project.demo.exceptions.WrongPageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,7 +26,7 @@ public class GlobalExceptionController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler
-    public Error wrongNameException(WrongNameException wrongNameException) {
-        return new Error(wrongNameException.getMessage());
+    public Error wrongNameException(WrongDataException wrongDataException) {
+        return new Error(wrongDataException.getMessage());
     }
 }
