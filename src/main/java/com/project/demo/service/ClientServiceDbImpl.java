@@ -55,6 +55,7 @@ public class ClientServiceDbImpl implements ClientService {
 
         Sort sort = Sort.by("lastName").ascending();
         Pageable pageable = PageRequest.of(page - 1, size, sort);
+        log.info("Wyszukano klientów");
         return clientRepository.findAll(pageable).getContent();
     }
 
@@ -83,6 +84,7 @@ public class ClientServiceDbImpl implements ClientService {
 
     @Override
     public List<Client> createBatchOfClients(List<Client> clients) {
+        log.info("Dodano klientów");
         return clientRepository.saveAll(clients);
     }
 

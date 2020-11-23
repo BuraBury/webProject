@@ -53,11 +53,13 @@ public class PersonnelServiceDbImpl implements PersonnelService {
             size = 5;
         }
         if (page < 1) {
+
             throw new WrongPageException("Strona nie moze byc mniejsza niz 1");
         }
 
         Sort sort = Sort.by("salary").descending();
         Pageable pageable = PageRequest.of(page - 1, size, sort);
+        log.info("Wyszukano pracowników");
         return personnelRepository.findAll(pageable).getContent();
     }
 
@@ -88,6 +90,7 @@ public class PersonnelServiceDbImpl implements PersonnelService {
 
     @Override
     public List<Personnel> createBatchOfPersonnel(List<Personnel> personals) {
+        log.info("Dodano liste pracowników");
         return personnelRepository.saveAll(personals);
     }
 
