@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/hotel/personnel")
@@ -28,7 +29,7 @@ public class PersonnelController {
     // gdzie id to numer pracownika
     @GetMapping("/{id}")
     public ResponseEntity<?> getPersonnelByID(@PathVariable Long id) {
-        Personnel personnel = personnelService.getPersonnelById(id);
+        Optional<Personnel> personnel = personnelService.getPersonnelById(id);
         //jezeli znalazlo pracownika zwraca go
         if (Objects.nonNull(personnel)) {
             return ResponseEntity.ok(personnel);
@@ -77,12 +78,11 @@ public class PersonnelController {
         } else {
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @GetMapping("/sick/{sickLeave}")
     public ResponseEntity<?> getPersonnlesBySickLeave(@PathVariable Boolean sickLeave) {
-        return ResponseEntity.ok(personnelService.getPersonnelsBySickLeave(sickLeave));
+        return ResponseEntity.ok(personnelService.getPersonnelBySickLeave(sickLeave));
     }
 
     @GetMapping("/position")

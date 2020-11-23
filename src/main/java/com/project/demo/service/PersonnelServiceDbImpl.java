@@ -1,5 +1,6 @@
 package com.project.demo.service;
 
+import com.project.demo.exceptions.WrongIdException;
 import com.project.demo.model.Personnel;
 
 import com.project.demo.exceptions.WrongPageException;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Scope("prototype")
@@ -30,12 +32,19 @@ public class PersonnelServiceDbImpl implements PersonnelService {
     }
 
     @Override
-    public Personnel getPersonnelById(Long id) throws WrongPageException {
-        return personnelRepository.findById(id).orElse(null);
+    public Optional<Personnel> getPersonnelById(Long id) throws WrongIdException {
+        if (personnelRepository.findById(id).isEmpty()) {
+            log.info("Podane id pracownika nie istnieje w bazie; id = " + id);
+            throw new WrongIdException("Błędne id pracownika; id = " + id);
+        } else {
+            log.info("Odnaleziono pracownika po id; id = " + id);
+            return personnelRepository.findById(id);
+        }
+
     }
 
     @Override
-    public List<Personnel> getAllPersonnel(Integer page, Integer size) {
+    public List<Personnel> getAllPersonnel(Integer page, Integer size) throws WrongPageException {
         if (!Objects.nonNull(page)) {
             page = 1;
         }
@@ -78,7 +87,7 @@ public class PersonnelServiceDbImpl implements PersonnelService {
     }
 
     @Override
-    public List<Personnel> getPersonnelsBySickLeave(boolean sickLeave) {
+    public List<Personnel> getPersonnelBySickLeave(boolean sickLeave) {
         return personnelRepository.findPersonnelsBySickLeaveEquals(sickLeave);
     }
 
@@ -123,7 +132,6 @@ public class PersonnelServiceDbImpl implements PersonnelService {
         if (firstName == null && lastName == null && salary == null && id == null) {
             return personnelRepository.findPersonnelsByPositionAndSickLeave(position, sickLeave);
         }
-
         log.info("Brak takiego pracownika w bazie");
         return null;
     }

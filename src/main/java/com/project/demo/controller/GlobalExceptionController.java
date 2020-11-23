@@ -1,5 +1,6 @@
 package com.project.demo.controller;
 
+import com.project.demo.exceptions.WrongIdException;
 import com.project.demo.exceptions.WrongPageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,5 +15,11 @@ public class GlobalExceptionController {
     @ExceptionHandler
     public Error pageExceptionHandler(WrongPageException wrongPageException) {
         return new Error(wrongPageException.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public Error wrongIdException(WrongIdException wrongIdException) {
+        return new Error(wrongIdException.getMessage());
     }
 }
