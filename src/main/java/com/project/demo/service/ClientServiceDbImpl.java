@@ -58,9 +58,15 @@ public class ClientServiceDbImpl implements ClientService {
     }
 
     @Override
-    public boolean removeClientById(Long id) {
-        clientRepository.deleteById(id);
-        return true;
+    public boolean removeClientById(Long id) throws WrongIdException {
+        if (clientRepository.findById(id).isEmpty()) {
+            log.info("Podane id klienta nie istnieje; id = " + id);
+            throw new WrongIdException("Podane id klienta nie istnieje; id = " + id);
+        } else {
+            log.info("Poprawnie usunięto z bazy klienta o id = " + id);
+            clientRepository.deleteById(id);
+            return true;
+        }
     }
 
     @Override
@@ -75,11 +81,14 @@ public class ClientServiceDbImpl implements ClientService {
     }
 
     @Override
-    public Client updateClientById(Long id, Client client) {
+    public Client updateClientById(Long id, Client client) throws WrongIdException {
         if (clientRepository.existsById(id)) {
             client.setId(id);
+            log.info("Dane klienta zostały zaktualizowane pomyślnie");
             return clientRepository.save(client);
+        } else {
+            log.info("Podane id klienta nie istnieje; id = " + id);
+            throw new WrongIdException("Podane id klienta nie istnieje; id = " + id);
         }
-        return null;
     }
 }

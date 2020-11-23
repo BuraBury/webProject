@@ -61,9 +61,15 @@ public class PersonnelServiceDbImpl implements PersonnelService {
     }
 
     @Override
-    public boolean removePersonnelById(Long id) {
-        personnelRepository.deleteById(id);
-        return true;
+    public boolean removePersonnelById(Long id) throws WrongIdException {
+        if (personnelRepository.findById(id).isEmpty()) {
+            log.info("Podane id pracownika nie istnieje; id = " + id);
+            throw new WrongIdException("Podane id pracownika nie istnieje; id = " + id);
+        } else {
+            log.info("Poprawnie usunięto z bazy pracownika o id = " + id);
+            personnelRepository.deleteById(id);
+            return true;
+        }
     }
 
     @Override
@@ -78,12 +84,15 @@ public class PersonnelServiceDbImpl implements PersonnelService {
     }
 
     @Override
-    public Personnel updatePersonnelById(Long id, Personnel personnel) {
+    public Personnel updatePersonnelById(Long id, Personnel personnel) throws WrongIdException {
         if (personnelRepository.existsById(id)) {
             personnel.setId(id);
+            log.info("Dane pracownika zostały zaktualizowane pomyślnie");
             return personnelRepository.save(personnel);
+        } else {
+            log.info("Podane id pracownika nie istnieje; id = " + id);
+            throw new WrongIdException("Podane id pracownika nie istnieje; id = " + id);
         }
-        return null;
     }
 
     @Override

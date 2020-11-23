@@ -5,12 +5,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Scope("singleton")
@@ -36,12 +31,12 @@ public class ClientServiceInMemoryImpl implements ClientService {
 //    }
 
     @Override
-    public Client getClientById(Long id) {
-        return clientMap.getOrDefault(id, null);
+    public Optional<Client> getClientById(Long id) {
+        return Optional.ofNullable(clientMap.get(id));
     }
 
     @Override
-    public List<Client> getAllClients() {
+    public List<Client> getAllClients(Integer page, Integer size) {
         return new ArrayList<>(clientMap.values());
     }
 

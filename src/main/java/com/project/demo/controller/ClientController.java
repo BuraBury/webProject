@@ -1,7 +1,6 @@
 package com.project.demo.controller;
 
 import com.project.demo.model.Client;
-import com.project.demo.model.Personnel;
 import com.project.demo.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/hotel/client")
@@ -24,7 +24,7 @@ public class ClientController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getClientById(@PathVariable Long id) {
-        Client client = clientService.getClientById(id);
+        Optional<Client> client = clientService.getClientById(id);
         if (Objects.nonNull(client)) {
             return ResponseEntity.ok(client);
         } else {
@@ -33,8 +33,9 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> getAllClients() {
-        return ResponseEntity.ok(clientService.getAllClients());
+    public ResponseEntity<List<Client>> getAllClients(@RequestParam(required = false) Integer page,
+                                                      @RequestParam(required = false) Integer size) {
+        return ResponseEntity.ok(clientService.getAllClients(page, size));
     }
 
     @DeleteMapping("/{id}")

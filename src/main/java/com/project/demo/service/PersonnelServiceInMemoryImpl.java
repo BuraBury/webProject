@@ -9,10 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Scope("singleton")
@@ -80,8 +77,8 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
 //    }
 
     @Override
-    public Personnel getPersonnelById(Long id) {
-        return personnelMap.getOrDefault(id, null);
+    public Optional<Personnel> getPersonnelById(Long id) {
+        return Optional.ofNullable(personnelMap.getOrDefault(id, null));
     }
 
     @Override
@@ -137,7 +134,7 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
     }
 
     @Override
-    public List<Personnel> getPersonnelsBySickLeave(boolean sickLeave) {
+    public List<Personnel> getPersonnelBySickLeave(boolean sickLeave) {
         return null;
     }
 
@@ -153,6 +150,10 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
 
     @Override
     public List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName, String position, Double salary, LocalDate hireDate, Boolean isSick) {
+        return null;
+    }
+
+    public List<Personnel> findSickPersonnelsByPositions(String position) {
         return null;
     }
 
