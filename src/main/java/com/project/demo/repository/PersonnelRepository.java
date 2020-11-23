@@ -19,7 +19,6 @@ public interface PersonnelRepository extends JpaRepository<Personnel, Long> {
     //nativeQuery -> false = HQL; nativeQuery -> true SQL
     @Query(value = "SELECT p FROM personnel p WHERE p.position= :position", nativeQuery = false)
     List<Personnel> findPersonnelByPositionEquals(@Param("position") String position);
-
     /*
     to samo co
     List <Personnel> findPersonnelByPositionEqualTo(String position);
@@ -31,28 +30,34 @@ public interface PersonnelRepository extends JpaRepository<Personnel, Long> {
     List<Personnel> findPersonnelByFirstNameEquals(@Param("firstName") String firstName);
 
     @Query(value = "SELECT p from personnel p where p.lastName= :lastName", nativeQuery = false)
-    List<Personnel> findPersonnelsByLastNameEquals(@Param("lastName") String lastName);
+    List<Personnel> findPersonnelByLastNameEquals(@Param("lastName") String lastName);
 
     @Query(value = "SELECT p from personnel p where p.salary= :salary", nativeQuery = false)
-    List<Personnel> findPersonnelsBySalaryEquals(@Param("salary") Double salary);
+    List<Personnel> findPersonnelBySalaryEquals(@Param("salary") Double salary);
 
     @Query(value = "SELECT p from personnel p where p.hireDate= :hireDate", nativeQuery = false)
-    List<Personnel> findPersonnelsByHireDateEquals(@Param("hireDate") LocalDate hireDate);
+    List<Personnel> findPersonnelByHireDateEquals(@Param("hireDate") LocalDate hireDate);
 
     @Query(value = "SELECT p from personnel p where p.firstName= :firstName AND p.lastName= :lastName", nativeQuery = false)
-    List<Personnel> findPersonnelsByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
+    List<Personnel> findPersonnelByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 
     @Query(value = "SELECT p from personnel p where p.salary= :salary AND p.firstName= :firstName", nativeQuery = false)
-    List<Personnel> findPersonnelsBySalaryAndFirstName(@Param("salary") Double salary, @Param("firstName") String firstName);
+    List<Personnel> findPersonnelBySalaryAndFirstName(@Param("salary") Double salary, @Param("firstName") String firstName);
 
     @Query(value = "SELECT p from personnel p where p.position= :position and p.sickLeave = :sickLeave", nativeQuery = false)
-    List<Personnel> findPersonnelsByPositionAndSickLeave(@Param("position") String position, @Param("sickLeave") Boolean sickLeave);
+    List<Personnel> findPersonnelByPositionAndSickLeave(@Param("position") String position, @Param("sickLeave") Boolean sickLeave);
 
+    @Query(value = "select p from personnel p where p.position= :position and p.salary= :salary", nativeQuery = false)
+    List<Personnel> findPersonnelByPositionAndSalaryEqual(@Param("position") String position, @Param("salary") Double salary);
+
+    @Query(value = "select p from personnel p where p.firstName= :firstName and p.lastName= :lastName and p.position= :position", nativeQuery = false)
+    List<Personnel> getPersonnelByFirstNameLastNameAndPosition(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("position") String position);
 
     @Modifying
     @Query(value = "update personnel p set p.sickLeave = false")
     @Transactional
     void updateAllPersonnelToBeHealthy();
+
 
 
 }

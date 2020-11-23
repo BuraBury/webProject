@@ -77,15 +77,13 @@ public class PersonnelServiceDbImpl implements PersonnelService {
 
     @Override
     public Personnel createNewPersonnel(Personnel personnel) throws WrongDataException {
-        if (personnel.getFirstName().length() < 2 || personnel.getLastName().length()< 2) {
+        if (personnel.getFirstName().length() < 2 || personnel.getLastName().length() < 2) {
             log.info("Nie udalo sie dodac pracownika");
             throw new WrongDataException("Błędne dane");
         } else {
             log.info("Dodano nowego pracownika");
             return personnelRepository.save(personnel);
         }
-
-
     }
 
     @Override
@@ -118,42 +116,87 @@ public class PersonnelServiceDbImpl implements PersonnelService {
 
     @Override
     public void cureAllPersonnel() {
+        log.info("Zmieniono wartość parametru sickLeave wszystkim pracownikom na 'false'");
         personnelRepository.updateAllPersonnelToBeHealthy();
-
     }
 
     @Override
-    public List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName,
-                                                   String position, Double salary, LocalDate hireDate, Boolean sickLeave) {
+    public List<Personnel> getSomeSpecialPersonnel(Long id, String firstName,
+                                                   String lastName, String position,
+                                                   Double salary, LocalDate hireDate,
+                                                   Boolean sickLeave) throws WrongDataException {
         if (firstName == null && lastName == null && position == null && salary == null && hireDate == null) {
+            List<Personnel> list = personnelRepository.findPersonnelByIdEquals(id);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracownika o id: %d", id));
             return personnelRepository.findPersonnelByIdEquals(id);
         }
         if (id == null && lastName == null && position == null && salary == null && hireDate == null) {
-            return personnelRepository.findPersonnelByFirstNameEquals(firstName);
+            List<Personnel> list = personnelRepository.findPersonnelByFirstNameEquals(firstName);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników o imieniu: %s", firstName));
+            return list;
         }
         if (firstName == null && id == null && position == null && salary == null && hireDate == null) {
-            return personnelRepository.findPersonnelsByLastNameEquals(lastName);
+            List<Personnel> list = personnelRepository.findPersonnelByLastNameEquals(lastName);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników o nazwisku: %s", lastName));
+            return list;
         }
         if (firstName == null && lastName == null && id == null && salary == null && hireDate == null) {
-            return personnelRepository.findPersonnelByPositionEquals(position);
+            List<Personnel> list = personnelRepository.findPersonnelByPositionEquals(position);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników na stanowisku: %s", position));
+            return list;
         }
         if (firstName == null && lastName == null && position == null && id == null && hireDate == null) {
-            return personnelRepository.findPersonnelsBySalaryEquals(salary);
+            List<Personnel> list = personnelRepository.findPersonnelBySalaryEquals(salary);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników zarabiających: %szł", salary));
+            return list;
         }
         if (firstName == null && lastName == null && position == null && salary == null && id == null) {
-            return personnelRepository.findPersonnelsByHireDateEquals(hireDate);
+            List<Personnel> list = personnelRepository.findPersonnelByHireDateEquals(hireDate);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników zatrudnionego: %s", hireDate.toString()));
+            return list;
         }
         if (position == null && salary == null && id == null) {
-            return personnelRepository.findPersonnelsByFirstNameAndLastName(firstName, lastName);
+            List<Personnel> list = personnelRepository.findPersonnelByFirstNameAndLastName(firstName, lastName);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników o imieniu: %s i naziwsku: %s", firstName, lastName));
+            return list;
         }
         if (hireDate == null && lastName == null && id == null && position == null) {
-            return personnelRepository.findPersonnelsBySalaryAndFirstName(salary, firstName);
+            List<Personnel> list = personnelRepository.findPersonnelBySalaryAndFirstName(salary, firstName);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników zarabiających: %s o imieniu: %s", salary, firstName));
+            return list;
         }
         if (firstName == null && lastName == null && salary == null && id == null) {
-            return personnelRepository.findPersonnelsByPositionAndSickLeave(position, sickLeave);
+            List<Personnel> list = personnelRepository.findPersonnelByPositionAndSickLeave(position, sickLeave);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników na stanowisku: %s o statusie zwolnienia chorobowego: %s", position, sickLeave));
+            return list;
         }
-        log.info("Brak takiego pracownika w bazie");
-        return null;
+        if (id == null && firstName == null && lastName == null) {
+            List<Personnel> list = personnelRepository.findPersonnelByPositionAndSalaryEqual(position, salary);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników na stanowisku: %s zarabiających: %s", position, salary));
+            return list;
+        }
+        if (firstName != null && lastName != null && position != null) {
+            List<Personnel> list = personnelRepository.getPersonnelByFirstNameLastNameAndPosition(firstName, lastName, position);
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Nie znaleziono pracowników o imieniu: %s, nazwisku: %s, na stanowisku: %s", firstName, lastName, position));
+            return list;
+        }
+        log.info("Wprowadzono błędne dane");
+        throw new WrongDataException("Wprowadzono błędne dane");
+    }
+
+    private boolean isListEmpty(List<?> list) {
+        return list.size() == 0;
     }
 }
 
