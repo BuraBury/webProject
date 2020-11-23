@@ -102,9 +102,9 @@ public class PersonnelController {
                                                      @RequestParam(required = false) String lastName,
                                                      @RequestParam(required = false) String position,
                                                      @RequestParam(required = false) Double salary,
-                                                     @RequestParam(required = false) LocalDate hireDate,
+                                                     @RequestParam(required = false) String hireDate,
                                                      @RequestParam(required = false) Boolean sickLeave) {
-        return ResponseEntity.ok(personnelService.getSomeSpecialPersonnel(id, firstName, lastName, position, salary, hireDate, sickLeave));
+        return ResponseEntity.ok(personnelService.getSomeSpecialPersonnel(id, firstName, lastName, position, salary, LocalDate.parse(hireDate), sickLeave));
     }
 
 }

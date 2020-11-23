@@ -191,6 +191,13 @@ public class PersonnelServiceDbImpl implements PersonnelService {
                 throw new WrongDataException(String.format("Nie znaleziono pracowników o imieniu: %s, nazwisku: %s, na stanowisku: %s", firstName, lastName, position));
             return list;
         }
+
+        if (position != null && hireDate != null && sickLeave == null) {
+            List<Personnel> list = personnelRepository.getPersonnelByPositionAndHireDateEqual(position, hireDate.toString());
+            if (isListEmpty(list))
+                throw new WrongDataException(String.format("Brak pracowników na stanowisku: %s zatrudnionych: %s", position, hireDate));
+            return list;
+        }
         log.info("Wprowadzono błędne dane");
         throw new WrongDataException("Wprowadzono błędne dane");
     }

@@ -53,6 +53,9 @@ public interface PersonnelRepository extends JpaRepository<Personnel, Long> {
     @Query(value = "select p from personnel p where p.firstName= :firstName and p.lastName= :lastName and p.position= :position", nativeQuery = false)
     List<Personnel> getPersonnelByFirstNameLastNameAndPosition(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("position") String position);
 
+    @Query(value = "select p from personnel p where p.position= :position and p.hireDate= :hireDate")
+    List<Personnel> getPersonnelByPositionAndHireDateEqual(@Param("position") String position, @Param("hireDate") String hireDate);
+
     @Modifying
     @Query(value = "update personnel p set p.sickLeave = false")
     @Transactional
