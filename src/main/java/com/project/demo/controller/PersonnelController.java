@@ -87,6 +87,7 @@ public class PersonnelController {
 
     @GetMapping("/position")
     public ResponseEntity<?> getPersonnelByPosition(@RequestParam("position") String position) {
+        log.info("Wyszukano pracowników na stanowisku " + position);
         return ResponseEntity.ok(personnelService.getPersonnelByPosition(position));
     }
 
@@ -95,7 +96,7 @@ public class PersonnelController {
         personnelService.cureAllPersonnel();
     }
 
-    @GetMapping("/some")
+    @GetMapping("/info")
     public ResponseEntity<?> getSomeSpecialPersonnel(@RequestParam(required = false) Long id,
                                                      @RequestParam(required = false) String firstName,
                                                      @RequestParam(required = false) String lastName,

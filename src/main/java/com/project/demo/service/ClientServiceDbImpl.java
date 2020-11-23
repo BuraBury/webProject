@@ -73,19 +73,24 @@ public class ClientServiceDbImpl implements ClientService {
 
     @Override
     public Client createNewClient(Client client) throws WrongDataException {
-        if(client.getFirstName().length() < 2 || client.getLastName().length() < 2) {
+        if (client.getFirstName().length() < 2 || client.getLastName().length() < 2) {
             log.info("Nie udalo sie dodać klienta");
             throw new WrongDataException("Błędne dane");
-        }else {
+        } else {
             log.info("Dodano nowego klienta");
             return clientRepository.save(client);
         }
     }
 
     @Override
-    public List<Client> createBatchOfClients(List<Client> clients) {
-        log.info("Dodano klientów");
-        return clientRepository.saveAll(clients);
+    public List<Client> createBatchOfClients(List<Client> clients) throws WrongDataException {
+        if (clients.isEmpty()) {
+            log.info("Nie udalo sie dodać klientów. Przesłana lista jest pusta");
+            throw new WrongDataException("Podana lista jest pusta");
+        } else {
+            log.info("Dodano klientów");
+            return clientRepository.saveAll(clients);
+        }
     }
 
     @Override
