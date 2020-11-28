@@ -123,7 +123,7 @@ public class PersonnelServiceDbImpl implements PersonnelService {
     @Override
     public List<Personnel> getSomeSpecialPersonnel(Long id, String firstName,
                                                    String lastName, String position,
-                                                   Double salary, LocalDate hireDate,
+                                                   Double salary, String hireDate,
                                                    Boolean sickLeave) throws WrongDataException {
         if (firstName == null && lastName == null && position == null && salary == null && hireDate == null) {
             List<Personnel> list = personnelRepository.findPersonnelByIdEquals(id);
@@ -155,8 +155,8 @@ public class PersonnelServiceDbImpl implements PersonnelService {
                 throw new WrongDataException(String.format("Nie znaleziono pracowników zarabiających: %szł", salary));
             return list;
         }
-        if (firstName == null && lastName == null && position == null && salary == null && id == null) {
-            List<Personnel> list = personnelRepository.findPersonnelByHireDateEquals(hireDate);
+        if (firstName == null && lastName == null && position == null && salary == null && id == null && hireDate != null) {
+            List<Personnel> list = personnelRepository.findPersonnelByHireDateEquals(LocalDate.parse(hireDate));
             if (isListEmpty(list))
                 throw new WrongDataException(String.format("Nie znaleziono pracowników zatrudnionego: %s", hireDate.toString()));
             return list;

@@ -149,7 +149,7 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
     }
 
     @Override
-    public List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName, String position, Double salary, LocalDate hireDate, Boolean isSick) {
+    public List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName, String position, Double salary, String hireDate, Boolean isSick) {
         return null;
     }
 

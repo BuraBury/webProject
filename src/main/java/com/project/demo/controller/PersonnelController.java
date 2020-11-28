@@ -3,6 +3,7 @@ package com.project.demo.controller;
 import com.project.demo.model.Personnel;
 import com.project.demo.service.PersonnelService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.jni.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,7 +106,7 @@ public class PersonnelController {
                                                      @RequestParam(required = false) Double salary,
                                                      @RequestParam(required = false) String hireDate,
                                                      @RequestParam(required = false) Boolean sickLeave) {
-        return ResponseEntity.ok(personnelService.getSomeSpecialPersonnel(id, firstName, lastName, position, salary, LocalDate.parse(hireDate), sickLeave));
+        return ResponseEntity.ok(personnelService.getSomeSpecialPersonnel(id, firstName, lastName, position, salary, hireDate, sickLeave));
     }
 
 }
