@@ -9,6 +9,22 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Hotel Paradiso</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" th:href="@{/client/add}">Add new client</a>
+            <a class="nav-item nav-link" th:href="@{/client}">Go back</a>
+            <a class="nav-item nav-link" th:href="@{/logout}">Log out</a>
+        </div>
+    </div>
+</nav>
+
 <form method="post" th:action="@{/client/add}" th:object="${client}">
     <div class="form-group">
         <label>

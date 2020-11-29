@@ -5,24 +5,130 @@
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
-    <title>Klient</title>
+    <title>Client</title>
 </head>
 <body>
-<div>
-    <div th:object="${client}">
-        <p th:text="*{id}"></p>
-        <p th:text="*{firstName}"></p>
-        <p th:text="*{lastName}"></p>
-        <p th:text="*{arrivalDate}"></p>
-        <p th:text="*{departureDate}"></p>
-        <p th:text="*{passportNumber}"></p>
-        <p th:text="*{roomNumber}"></p>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Hotel Paradiso</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" th:href="@{/client/add}">Add new client</a>
+            <a class="nav-item nav-link" th:href="@{/client}">Go back</a>
+            <a class="nav-item nav-link" th:href="@{/logout}">Log out</a>
+        </div>
     </div>
-    <a href="./client/add">
-        <button type="button">update</button>
-    </a>
+</nav>
+
+<div>
+    <h1 th:text="#{client.one}"></h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">last name</th>
+            <th scope="col">arrival date</th>
+            <th scope="col">departure date</th>
+            <th scope="col">passport number</th>
+            <th scope="col">room number</th>
+        </tr>
+        </thead>
+
+        <div th:object="${client}">
+            <tbody>
+            <tr>
+                <th th:text="*{id}"></th>
+                <th th:text="*{firstName}"></th>
+                <th th:text="*{lastName}"></th>
+                <th th:text="*{arrivalDate}"></th>
+                <th th:text="*{departureDate}"></th>
+                <th th:text="*{passportNumber}"></th>
+                <th th:text="*{roomNumber}"></th>
+
+            </tr>
+            </tbody>
+        </div>
+    </table>
 </div>
 
+<h1>Update info</h1>
+
+<form class="col-form-label-sm" method="post" th:action="@{/client/{id}(id=${client.id})}"
+      th:object="${client}">
+    <div class="form-group">
+        <label>
+            Name:
+            <input type="text" th:field="*{firstName}">
+            <ul th:if="${#fields.hasErrors('firstName')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></li>
+            </ul>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Last name:
+            <input type="text" th:field="*{lastName}">
+            <ul th:if="${#fields.hasErrors('lastName')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('lastName')}" th:text="${err}"></li>
+            </ul>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Arrival Date:
+            <input type="date" th:field="*{arrivalDate}">
+            <ul th:if="${#fields.hasErrors('arrivalDate')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('arrivalDate')}" th:text="${err}"></li>
+            </ul>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Departure date:
+            <input type="date" th:field="*{departureDate}">
+            <ul th:if="${#fields.hasErrors('departureDate')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('departureDate')}" th:text="${err}"></li>
+            </ul>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Passport number:
+            <input type="text" th:field="*{passportNumber}">
+            <ul th:if="${#fields.hasErrors('passportNumber')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('passportNumber')}" th:text="${err}">Salary is
+                    incorrect
+                </li>
+            </ul>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Room number:
+            <input type="text" th:field="*{roomNumber}">
+            <ul th:if="${#fields.hasErrors('roomNumber')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('roomNumber')}" th:text="${err}">Salary is
+                    incorrect
+                </li>
+            </ul>
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Update</button>
+
+    <hr>
+</form>
 
 </body>
 </html>

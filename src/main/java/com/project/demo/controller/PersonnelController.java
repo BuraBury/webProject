@@ -37,12 +37,13 @@ public class PersonnelController {
     }
 
     @PostMapping("/personnel/{id}")
-    public String updatePersonnel(@Valid @ModelAttribute("personnel") Personnel personnel, @PathVariable Long id, final Errors errors) {
+    public String updatePersonnel(@Valid @ModelAttribute("personnel") Personnel personnel,
+                                  @PathVariable Long id, final Errors errors) {
         if (errors.hasErrors()) {
             return "one-personnel";
         }
         personnelService.updatePersonnelById(id, personnel);
-        return "redirect:/personnel/"+id;
+        return "redirect:/personnel/" + id;
     }
 
 

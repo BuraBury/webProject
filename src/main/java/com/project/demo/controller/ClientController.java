@@ -40,6 +40,15 @@ public class ClientController {
         return "client-add";
     }
 
+    @PostMapping("/client/{id}")
+    public String updateClient(@Valid @ModelAttribute("client") Client client, @PathVariable Long id, final Errors errors) {
+        if (errors.hasErrors()) {
+            return "one-client";
+        }
+        clientService.updateClientById(id, client);
+        return "redirect:/client/" + id;
+    }
+
     @PostMapping("/client/add")
     public String addClient(@Valid @ModelAttribute("client") Client client, final Errors error) {
         if (error.hasErrors()) {
