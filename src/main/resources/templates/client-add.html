@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Dodaj klienta</title>
+</head>
+<body>
+
+<form method="post" th:action="@{/client/add}" th:object="${client}">
+    <div class="form-group">
+        <label>
+            Imię:
+            <input type="text" th:field="*{firstName}">
+            <ul th:if="${#fields.hasErrors('firstName')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('firstName')}" th:text="${err}">first name is
+                    incorrect
+                </li>
+            </ul>
+        </label>
+    </div>
+    </div>
+    <div class="form-group">
+        <label>
+            Nazwisko:
+            <input type="text" th:field="*{lastName}">
+            <ul th:if="${#fields.hasErrors('lastName')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('lastName')}" th:text="${err}">last name is
+                    incorrect
+                </li>
+            </ul>
+        </label>
+    </div>
+    </div>
+    <div class="form-group">
+        <label>
+            Data przyjazdu:
+            <input type="date" th:field="*{arrivalDate}">
+            <ul th:if="${#fields.hasErrors('arrivalDate')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('arrivalDate')}" th:text="${err}">arrival date
+                    is
+                    incorrect
+                </li>
+            </ul>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Data wyjazdu:
+            <input type="date" th:field="*{departureDate}">
+            <ul th:if="${#fields.hasErrors('departureDate')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('departureDate')}" th:text="${err}">departure
+                    date is
+                    incorrect
+                </li>
+            </ul>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Numer paszportu:
+            <input type="text" th:field="*{passportNumber}">
+            <ul th:if="${#fields.hasErrors('passportNumber')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('passportNumber')}" th:text="${err}">
+                    passportNumber is
+                    incorrect
+                </li>
+            </ul>
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Numer pokoju:
+            <input type="text" th:field="*{roomNumber}">
+            <ul th:if="${#fields.hasErrors('roomNumber')}">
+                <li class="text-danger" th:each="err : ${#fields.errors('roomNumber')}" th:text="${err}">roomNumber is
+                    incorrect
+                </li>
+            </ul>
+        </label>
+    </div>
+    <button class="btn btn-primary mb-2" type="submit">Dodaj klienta</button>
+
+</form>
+
+</body>
+</html>

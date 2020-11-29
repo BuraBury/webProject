@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Klient</title>
+</head>
+<body>
+<div>
+    <div th:object="${client}">
+        <p th:text="*{id}"></p>
+        <p th:text="*{firstName}"></p>
+        <p th:text="*{lastName}"></p>
+        <p th:text="*{arrivalDate}"></p>
+        <p th:text="*{departureDate}"></p>
+        <p th:text="*{passportNumber}"></p>
+        <p th:text="*{roomNumber}"></p>
+    </div>
+    <a href="./client/add">
+        <button type="button">update</button>
+    </a>
+</div>
+
+
+</body>
+</html>

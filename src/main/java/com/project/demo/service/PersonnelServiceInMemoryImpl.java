@@ -134,6 +134,11 @@ public class PersonnelServiceInMemoryImpl implements PersonnelService {
     }
 
     @Override
+    public Personnel updatePersonnel(Personnel personnel) {
+        return null;
+    }
+
+    @Override
     public List<Personnel> getPersonnelBySickLeave(boolean sickLeave) {
         return null;
     }

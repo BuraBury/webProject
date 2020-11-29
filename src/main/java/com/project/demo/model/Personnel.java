@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -23,11 +22,13 @@ public class Personnel {
     @Id
     @GeneratedValue
     private Long id;
-//    @Length(min=2, max=25)
+    @Length(min=2, max=25)
     private String firstName;
+    @Length(min=2, max=25)
     private String lastName;
+    @Length(min=3, max=45)
     private String position;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate hireDate;
     @DecimalMin(value = "1500.0")
     private Double salary;
