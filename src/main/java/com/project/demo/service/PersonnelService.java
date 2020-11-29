@@ -20,15 +20,12 @@ public interface PersonnelService {
 
     Personnel updatePersonnelById(Long id, Personnel personnel);
 
-    Personnel updatePersonnel(Personnel personnel);
-
     List<Personnel> getPersonnelBySickLeave(boolean sickLeave);
 
-    List <Personnel> getPersonnelByPosition(String position);
-
-    void cureAllPersonnel();
+    List<Personnel> getPersonnelByPosition(String position);
 
     List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName,
                                             String position, Double salary, String hireDate, Boolean sickLeave);
 
+    void cureAllPersonnel();
 }

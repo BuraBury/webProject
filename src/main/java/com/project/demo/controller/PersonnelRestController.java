@@ -75,15 +75,15 @@ public class PersonnelRestController {
                 .body(personnelService.createNewPersonnel(personnel));
     }
 
-//    @PutMapping(path = "/{id}")
-//    public ResponseEntity<?> updatePersonnelById(@PathVariable Long id, @RequestBody Personnel personnel) {
-//        if (Objects.nonNull(personnelService.getPersonnelById(id))) {
-//            return ResponseEntity.status(HttpStatus.ACCEPTED)
-//                    .body(personnelService.updatePersonnelById(id, personnel));
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<?> updatePersonnelById(@PathVariable Long id, @RequestBody Personnel personnel) {
+        if (Objects.nonNull(personnelService.getPersonnelById(id))) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .body(personnelService.updatePersonnelById(id, personnel));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping("/sick/{sickLeave}")
     public ResponseEntity<?> getPersonnlesBySickLeave(@PathVariable Boolean sickLeave) {

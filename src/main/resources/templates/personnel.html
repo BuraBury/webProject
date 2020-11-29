@@ -8,20 +8,55 @@
     <title th:text="#{personnel.title}"></title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Hotel Paradiso</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" th:href="@{/personnel/add}">Add new personnel</a>
+        </div>
+    </div>
+</nav>
 <div>
     <h1 th:text="#{personnel.list}"></h1>
-    <div th:each="personnel : ${personnelList}">
-        <a th:href="@{/personnel/__${personnel.id}__}" th:text="${personnel.id}"></a>
-        <p th:text="${personnel.firstName}"></p>
-        <p th:text="${personnel.lastName}"></p>
-        <p th:text="${personnel.position}"></p>
-        <p th:text="${personnel.hireDate}"></p>
-        <p th:text="${personnel.salary}"></p>
-        <p th:text="${personnel.sickLeave}"></p>
-    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">last name</th>
+            <th scope="col">position</th>
+            <th scope="col">hire date</th>
+            <th scope="col">salary</th>
+            <th scope="col">sick leave</th>
+        </tr>
+        </thead>
+
+        <div th:each="personnel : ${personnelList}">
+            <tbody>
+            <tr>
+                <th><a th:href="@{/personnel/__${personnel.id}__}" th:text="${personnel.id}"></a></th>
+                <th th:text="${personnel.firstName}"></th>
+                <th th:text="${personnel.lastName}"></th>
+                <th th:text="${personnel.position}"></th>
+                <th th:text="${personnel.hireDate}"></th>
+                <th th:text="${personnel.salary}"></th>
+                <th th:text="${personnel.sickLeave}"></th>
+            </tr>
+            </tbody>
+        </div>
+    </table>
+
+
+</div>
 <!--    <a href="./add">-->
 <!--        <button type="button"> Add new personnel</button>-->
 <!--    </a>-->
-</div>
+
 </body>
 </html>

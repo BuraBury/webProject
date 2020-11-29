@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Użytkownik</title>
+</head>
+<body>
+<div>
+    <div th:object="${user}">
+        <p th:text="*{id}"></p>
+        <p th:text="*{userName}"></p>
+        <p th:text="*{enabled}"></p>
+        <p th:text="*{role}"></p>
+    </div>
+</div>
+
+</body>
+</html>

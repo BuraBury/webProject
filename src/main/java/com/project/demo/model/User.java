@@ -28,10 +28,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String role;
+    @Column()
+    private String role = "ROLE_USER";
 
-    @Column(columnDefinition = "boolean not null default false")
+    @Column(columnDefinition = "boolean not null default true")
     private Boolean enabled;
 
 

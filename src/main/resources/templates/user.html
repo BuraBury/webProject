@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div>
+    <h1 th:text="#{user.list}"></h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">user name</th>
+            <th scope="col">enabled</th>
+            <th scope="col">role</th>
+        </tr>
+        </thead>
+
+
+        <div th:each="user : ${usersList}">
+            <tbody>
+            <tr>
+                <th><a th:href="@{/user/__${user.id}__}" th:text="${user.id}"></a></th>
+                <th th:text="${user.userName}"></th>
+                <th th:text="${user.enabled}"></th>
+                <th th:text="${user.role}"></th>
+
+            </tr>
+            </tbody>
+        </div>
+    </table>
+
+</div>
+
+</body>
+</html>

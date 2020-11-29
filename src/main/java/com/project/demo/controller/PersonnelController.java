@@ -20,14 +20,8 @@ public class PersonnelController {
 
     @GetMapping
     public String welcomePage(ModelMap modelMap) {
-        modelMap.addAttribute("hotelName", "HotelParadise");
+        modelMap.addAttribute("hotelName", "Paradiso Hotel");
         return "welcome";
-    }
-
-    @GetMapping("/personnel/{id}")
-    public String personnel(ModelMap modelMap, @PathVariable Long id) {
-        modelMap.addAttribute("personnel", personnelService.getPersonnelById(id).get());
-        return "one-personnel";
     }
 
     @GetMapping("/personnel")
@@ -36,18 +30,27 @@ public class PersonnelController {
         return "personnel";
     }
 
+    @GetMapping("/personnel/{id}")
+    public String personnel(ModelMap modelMap, @PathVariable Long id) {
+        modelMap.addAttribute("personnel", personnelService.getPersonnelById(id).get());
+        return "one-personnel";
+    }
+
+    @PostMapping("/personnel/{id}")
+    public String updatePersonnel(@Valid @ModelAttribute("personnel") Personnel personnel, @PathVariable Long id, final Errors errors) {
+        if (errors.hasErrors()) {
+            return "one-personnel";
+        }
+        personnelService.updatePersonnelById(id, personnel);
+        return "redirect:/personnel/"+id;
+    }
+
 
     @GetMapping("/personnel/add")
     public String showPersonnelAdd(ModelMap modelMap) {
         modelMap.addAttribute("personnel", new Personnel());
         modelMap.addAttribute("error-msg", "błąd danych");
         return "personnel-add";
-    }
-
-    @GetMapping("/personnel/update/{id}")
-    public String showPersonnelAdd(ModelMap modelMap, @PathVariable Long id) {
-        modelMap.addAttribute("personnel", personnelService.getPersonnelById(id));
-        return "personnel-update";
     }
 
     @PostMapping("/personnel/add")
@@ -62,13 +65,5 @@ public class PersonnelController {
         return "redirect:/";
     }
 
-    @PostMapping("/personnel/update")
-    public String updatePersonnel(@Valid @ModelAttribute("personnel") Personnel personnel, final Errors errors) {
-        if (errors.hasErrors()) {
-            return "personnel-update";
-        }
-        personnelService.updatePersonnel(personnel);
-        return "redirect:/personnel/" + personnel.getId();
-    }
 
 }

@@ -6,19 +6,23 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 //wlasna implementacja serwisu do zarzadzania uzytkownikami w naszym systemie
 // -> póki co potrafi tylko zwrócić odpowiedni obiekt
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     //uzywane przez Spring Security do sprawdzenia czy dany użytkownik istnieje
@@ -33,4 +37,30 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 user.getEnabled(), true, true, true,
                 AuthorityUtils.createAuthorityList(user.getRole()));
     }
+
+    @Override
+    public User createNewUser(User user) {
+        if (Objects.isNull(userRepository.findByUserName(user.getUserName()))) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            if (Objects.isNull(user.getEnabled())) {
+                user.setEnabled(true);
+            }
+            return userRepository.save(user);
+        }
+        return null;
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        List<User> users = userRepository.findAll();
+        users.forEach(user -> user.setPassword(null));
+        return users;
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.getOne(id);
+    }
+
+
 }

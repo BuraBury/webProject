@@ -105,11 +105,6 @@ public class PersonnelServiceDbImpl implements PersonnelService {
     }
 
     @Override
-    public Personnel updatePersonnel(Personnel personnel) {
-        return personnelRepository.save(personnel);
-    }
-
-    @Override
     public List<Personnel> getPersonnelBySickLeave(boolean sickLeave) {
         return personnelRepository.findPersonnelsBySickLeaveEquals(sickLeave);
     }

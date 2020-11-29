@@ -10,21 +10,39 @@
 <body>
 <div>
     <h1 th:text="#{client.list}"></h1>
-    <div th:each="client : ${clientList}">
-        <a th:href="@{/client/__${client.id}__}" th:text="${client.id}"></a>
-        <p th:text="${client.firstName}"></p>
-        <p th:text="${client.lastName}"></p>
-        <p th:text="${client.arrivalDate}"></p>
-        <p th:text="${client.departureDate}"></p>
-        <p th:text="${client.passportNumber}"></p>
-        <p th:text="${client.roomNumber}"></p>
-    </div>
-<!--    <a href="./client/add">-->
-<!--        <button type="button"> Add new client</button>-->
-<!--    </a>-->
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">last name</th>
+            <th scope="col">arrival date</th>
+            <th scope="col">departure date</th>
+            <th scope="col">passport number</th>
+            <th scope="col">room number</th>
+        </tr>
+        </thead>
+
+        <div th:each="client : ${clientList}">
+            <tbody>
+            <tr>
+                <th><a th:href="@{/client/__${client.id}__}" th:text="${client.id}"></a></th>
+                <th th:text="${client.firstName}"></th>
+                <th th:text="${client.lastName}"></th>
+                <th th:text="${client.arrivalDate}"></th>
+                <th th:text="${client.departureDate}"></th>
+                <th th:text="${client.passportNumber}"></th>
+                <th th:text="${client.roomNumber}"></th>
+            </tr>
+            </tbody>
+        </div>
+
+    </table>
+    <!--    <a href="./client/add">-->
+    <!--        <button type="button"> Add new client</button>-->
+    <!--    </a>-->
 
 </div>
-
-
 </body>
 </html>

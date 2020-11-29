@@ -2,17 +2,47 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link th:href="@{/styles/main.css}" type="text/css">
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>Hotel paradise</title>
 </head>
-<body class="btn btn-group-toggle">
-<button>
-    <a th:href="@{/logout}">wyloguj</a>
-</button>
-<h1 class="text-primary">Witaj w </h1>
-<h1 class="text-danger" th:text="${hotelName}">Nazwa hotelu</h1>
-<img class="img-thumbnail" th:src="@{/images/hotel2.jpg}">
+<body class="welcome-body-lalala">
+<!--<body th:style="'background: url(/images/hotel2.jpg); background-repeat: no-repeat, repeat; background-size: cover; opacity: 0.8'">-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Hotel Paradiso</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" th:href="@{/personnel}">Meet our personnel</a>
+            <a class="nav-item nav-link" th:href="@{/client}">Show clients</a>
+            <a class="nav-item nav-link" th:href="@{/user}">Show users</a>
+            <a class="nav-item nav-link" th:href="@{/logout}">Log out</a>
+            <!--            <a class="nav-item nav-link" href="#">Disabled</a>-->
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to</h1>
+    <h1 class="text-danger" th:text="${hotelName}">Nazwa hotelu</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+</div>
+
+<!--<button class="btn btn-group-toggle">-->
+<!--    <a th:href="@{/logout}">wyloguj</a>-->
+<!--</button>-->
+
+
 </body>
 </html>
