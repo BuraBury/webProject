@@ -39,7 +39,7 @@ public class UserController {
             return "user-add";
         }
         userService.createNewUser(user);
-        return "redirect:/";
+        return "succeded";
     }
 
     @GetMapping("/user/add")

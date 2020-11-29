@@ -2,14 +2,13 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link th:href="@{/styles/main.css}" type="text/css">
     <link rel="stylesheet" href="/webjars/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="/webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>Hotel paradise</title>
 </head>
-<body class="welcome-body-lalala">
-<!--<body th:style="'background: url(/images/hotel2.jpg); background-repeat: no-repeat, repeat; background-size: cover; opacity: 0.8'">-->
+<!--<body class="welcome-body-lalala">-->
+<body th:style="'background: url(/images/hotel2.jpg); background-repeat: no-repeat, repeat; background-size: cover;'">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">Hotel Paradiso</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -28,16 +27,19 @@
     </div>
 </nav>
 
-<div class="jumbotron">
+<div class="jumbotron" th:style="'opacity: 0.9'">
     <h1 class="display-4">Welcome to</h1>
     <h1 class="text-danger" th:text="${hotelName}">Nazwa hotelu</h1>
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
     <hr class="my-4">
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <a class="btn btn-primary btn-lg" th:href="@{/personnel}" role="button">View personnel</a>
+        <a class="btn btn-primary btn-lg" th:href="@{/client}" role="button">View clients</a>
+        <a class="btn btn-primary btn-lg" th:href="@{/user}" role="button">View user</a>
     </p>
 </div>
+
 
 <!--<button class="btn btn-group-toggle">-->
 <!--    <a th:href="@{/logout}">wyloguj</a>-->

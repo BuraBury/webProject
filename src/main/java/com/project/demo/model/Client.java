@@ -31,6 +31,7 @@ public class Client {
     private LocalDate departureDate;
     @Length(min=2, max=25)
     private String passportNumber;
+    @Length(min=1, max=3)
     private String roomNumber;
 
 }

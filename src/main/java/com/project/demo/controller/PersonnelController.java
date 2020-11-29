@@ -63,7 +63,7 @@ public class PersonnelController {
             throw new RuntimeException("Błąd!");
         }
         personnelService.createNewPersonnel(personnel);
-        return "redirect:/";
+        return "succeded";
     }
 
 

@@ -58,6 +58,6 @@ public class ClientController {
             throw new RuntimeException("Błąd!");
         }
         clientService.createNewClient(client);
-        return "redirect:/";
+        return "succeded";
     }
 }
