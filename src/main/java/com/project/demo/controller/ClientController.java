@@ -1,7 +1,6 @@
 package com.project.demo.controller;
 
 import com.project.demo.model.Client;
-import com.project.demo.model.Personnel;
 import com.project.demo.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

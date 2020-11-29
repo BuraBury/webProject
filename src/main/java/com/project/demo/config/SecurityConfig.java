@@ -1,11 +1,12 @@
 package com.project.demo.config;
 
+import com.project.demo.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -13,19 +14,19 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
 
-    public SecurityConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    //autentykacja
+    //autentykajca
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password, enabled FROM users where username = ?")
-                .authoritiesByUsernameQuery("select username, authority from authorities where username = ?")
-                .passwordEncoder(new StandardPasswordEncoder("secret"));
+        auth.userDetailsService(userDetailsService).passwordEncoder((bCryptPasswordEncoder));
 
     }
 
@@ -41,7 +42,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic();
     }
 
-    /*dane do logowania w inMemory:
+    /*
+
+     @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.jdbcAuthentication().dataSource(dataSource)
+//                .usersByUsernameQuery("SELECT username, password, enabled FROM users where username = ?")
+//                .authoritiesByUsernameQuery("select username, authority from authorities where username = ?")
+//                .passwordEncoder(new StandardPasswordEncoder("secret"));
+//
+//    }
+
+    dane do logowania w inMemory:
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

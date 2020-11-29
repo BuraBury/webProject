@@ -1,34 +1,39 @@
 package com.project.demo.util;
 
-import com.project.demo.model.Client;
-import com.project.demo.model.Personnel;
-import com.project.demo.repository.ClientRepository;
-import com.project.demo.repository.PersonnelRepository;
+import com.project.demo.model.User;
+import com.project.demo.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.util.Objects;
 
 @Component
 @Slf4j
 public class TestRunner implements CommandLineRunner {
 
-    private final PersonnelRepository personnelRepository;
-    private final ClientRepository clientRepository;
 
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public TestRunner(PersonnelRepository personnelRepository, ClientRepository clientRepository) {
-        this.personnelRepository = personnelRepository;
-        this.clientRepository = clientRepository;
+    public TestRunner(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
+
 
     @Override
     public void run(String... args) throws Exception {
-
-        StandardPasswordEncoder standardPasswordEncoder = new StandardPasswordEncoder("secret");
-        System.out.println("HASLO: " + standardPasswordEncoder.encode("brutus"));
+        if (Objects.isNull(userRepository.findByUserName("Paulina"))) {
+            User user = User.builder()
+                    .userName("Paulina")
+                    .password(bCryptPasswordEncoder.encode("password"))
+                    .enabled(true)
+                    .role("ROLE_ADMIN")
+                    .build();
+            userRepository.save(user);
+        }
 
 
 //        Personnel personnel = Personnel.builder()
