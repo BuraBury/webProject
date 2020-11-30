@@ -8,12 +8,28 @@
     <title>Dodaj pracownika</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Hotel Paradiso</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" th:href="@{/personnel}">Go back</a>
+            <a class="nav-item nav-link" th:href="@{/personnel/add}">Add new personnel</a>
+            <a class="nav-item nav-link" th:href="@{/logout}">Log out</a>
+
+        </div>
+    </div>
+</nav>
 
 <form method="post" th:action="@{/personnel/add}" th:object="${personnel}">
 <!--    <h1 th:if="${#fields.hasErrors()}"></h1>-->
     <div class="form-group">
         <label>
-            Imię:
+            Name:
             <input type="text" th:field="*{firstName}">
             <ul th:if="${#fields.hasErrors('firstName')}">
                 <li class="text-danger" th:each="err : ${#fields.errors('firstName')}" th:text="${err}">first name is
@@ -24,7 +40,7 @@
     </div>
     <div class="form-group">
         <label>
-            Nazwisko:
+            Last name:
             <input type="text" th:field="*{lastName}">
             <ul th:if="${#fields.hasErrors('lastName')}">
                 <li class="text-danger" th:each="err : ${#fields.errors('lastName')}" th:text="${err}">last name is
@@ -35,7 +51,7 @@
     </div>
     <div class="form-group">
         <label>
-            Stanowisko:
+            Position:
             <input type="text" th:field="*{position}">
             <ul th:if="${#fields.hasErrors('position')}">
                 <li class="text-danger" th:each="err : ${#fields.errors('position')}" th:text="${err}">position is
@@ -46,7 +62,7 @@
     </div>
     <div class="form-group">
         <label>
-            Data zatrudnienia:
+            Hire date:
             <input type="date" th:field="*{hireDate}">
             <ul th:if="${#fields.hasErrors('hireDate')}">
                 <li class="text-danger" th:each="err : ${#fields.errors('hireDate')}" th:text="${err}">Date is
@@ -57,7 +73,7 @@
     </div>
     <div class="form-group">
         <label>
-            Wynagrodzenie:
+            Salary:
             <input type="number" th:field="*{salary}">
             <ul th:if="${#fields.hasErrors('salary')}">
                 <li class="text-danger" th:each="err : ${#fields.errors('salary')}" th:text="${err}">salary is
