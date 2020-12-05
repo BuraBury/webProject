@@ -202,6 +202,11 @@ public class PersonnelServiceDbImpl implements PersonnelService {
         throw new WrongDataException("Wprowadzono błędne dane");
     }
 
+//    @Override
+//    public List<Personnel> findByKeyword(String keyword) {
+//        return personnelRepository.findByKeyword(keyword);
+//    }
+
     private boolean isListEmpty(List<?> list) {
         return list.size() == 0;
     }

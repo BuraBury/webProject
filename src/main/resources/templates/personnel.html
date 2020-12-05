@@ -19,11 +19,19 @@
             <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" th:href="@{/personnel/add}">Add new personnel</a>
             <a class="nav-item nav-link" th:href="@{/logout}">Log out</a>
+<!--            <form method="get" th:action="@{/personnel}" class="form-inline my-2 my-lg-0">-->
+<!--                <input aria-label="Search" class="form-control mr-sm-2" placeholder="Search..." type="text" id="txtSearch" name="keyword">-->
+<!--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--            </form>-->
         </div>
     </div>
 </nav>
 <div>
     <h1 th:text="#{personnel.list}"></h1>
+    <form method="get" th:action="@{/personnel}" class="form-inline my-2 my-lg-0">
+        <input aria-label="Search" class="form-control mr-sm-2" placeholder="Search..." type="text" id="txtSearch" name="keyword">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
 
     <table class="table">
         <thead class="thead-dark">
@@ -35,6 +43,8 @@
             <th scope="col">hire date</th>
             <th scope="col">salary</th>
             <th scope="col">sick leave</th>
+            <th scope="col">update</th>
+            <th scope="col">delete</th>
         </tr>
         </thead>
 
@@ -48,6 +58,16 @@
                 <th th:text="${personnel.hireDate}"></th>
                 <th th:text="${personnel.salary}"></th>
                 <th th:text="${personnel.sickLeave}"></th>
+                <th>
+                    <form th:action="@{/personnel/{id}(id=${personnel.id})}" method="get">
+                        <input class="btn btn-outline-success mb-2" type="submit" value="Update"/>
+                    </form>
+                </th>
+                <th>
+                    <form th:action="@{/personnel/delete/{id}(id=${personnel.id})}" method="post">
+                        <input class="btn btn-outline-danger mb-2" type="submit" value="Delete"/>
+                    </form>
+                </th>
             </tr>
             </tbody>
         </div>

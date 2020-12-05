@@ -14,6 +14,9 @@ import java.util.List;
 @Repository
 public interface PersonnelRepository extends JpaRepository<Personnel, Long> {
 
+//    @Query(value = "select * from personnel p where p.firstName like %:keyword% or p.lastName like %:keyword% or p.position like %:keyword", nativeQuery = true)
+//    List<Personnel> findByKeyword(@Param("keyword") String keyword);
+
     List<Personnel> findPersonnelsBySickLeaveEquals(Boolean sickLeave); //zaawansowane zapytania do bazy
 
     //nativeQuery -> false = HQL; nativeQuery -> true SQL
@@ -55,6 +58,7 @@ public interface PersonnelRepository extends JpaRepository<Personnel, Long> {
 
     @Query(value = "select p from personnel p where p.position= :position and p.hireDate= :hireDate")
     List<Personnel> getPersonnelByPositionAndHireDateEqual(@Param("position") String position, @Param("hireDate") String hireDate);
+
 
     @Modifying
     @Query(value = "update personnel p set p.sickLeave = false")

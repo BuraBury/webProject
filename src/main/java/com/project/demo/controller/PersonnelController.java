@@ -24,10 +24,21 @@ public class PersonnelController {
         return "welcome";
     }
 
+//    @GetMapping("/personnel")
+//    public String personnel(ModelMap modelMap, String keyword) {
+//        if (keyword != null) {
+//            modelMap.addAttribute("personnelList", personnelService.findByKeyword(keyword));
+//        } else {
+//            modelMap.addAttribute("personnelList", personnelService.getAllPersonnel(1, 100));
+//        }
+//        return "personnel";
+//    }
+
     @GetMapping("/personnel")
     public String personnel(ModelMap modelMap) {
         modelMap.addAttribute("personnelList", personnelService.getAllPersonnel(1, 100));
         return "personnel";
+
     }
 
     @GetMapping("/personnel/{id}")
@@ -64,6 +75,18 @@ public class PersonnelController {
         }
         personnelService.createNewPersonnel(personnel);
         return "succeded";
+    }
+
+    @PostMapping("/personnel/delete/{id}")
+    public String deletePersonnel(@PathVariable Long id) {
+        personnelService.removePersonnelById(id);
+        return "redirect:/personnel";
+    }
+
+    @GetMapping("/personnel/delete/{id}")
+    public String getDelete(@PathVariable Long id) {
+        personnelService.getPersonnelById(id);
+        return "one-personnel";
     }
 
 

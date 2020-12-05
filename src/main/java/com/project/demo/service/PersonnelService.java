@@ -27,5 +27,6 @@ public interface PersonnelService {
     List<Personnel> getSomeSpecialPersonnel(Long id, String firstName, String lastName,
                                             String position, Double salary, String hireDate, Boolean sickLeave);
 
+//    public List<Personnel> findByKeyword(String keyword);
     void cureAllPersonnel();
 }
